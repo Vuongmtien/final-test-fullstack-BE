@@ -1,4 +1,3 @@
-// src/routes/teacher.routes.js
 import { Router } from 'express';
 import {
   listTeachers,
@@ -10,14 +9,10 @@ import {
 
 const router = Router();
 
-router.get('/', listTeachers);
-router.get('/all', (req, res, next) => {
-  req.query.limit = '0';
-  return listTeachers(req, res, next);
-});
-router.get('/:id', getTeacher);
-router.post('/', createTeacher);
-router.put('/:id', updateTeacher);
-router.delete('/:id', removeTeacher);
+router.get('/', listTeachers);          // GET   /api/teachers?page=1&limit=20
+router.get('/:id', getTeacher);         // GET   /api/teachers/:id
+router.post('/', createTeacher);        // POST  /api/teachers
+router.put('/:id', updateTeacher);      // PUT   /api/teachers/:id
+router.delete('/:id', removeTeacher);   // DELETE /api/teachers/:id
 
 export default router;

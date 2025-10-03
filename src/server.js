@@ -19,6 +19,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use('/api/teachers', teacherRoutes);
 
 app.get("/", (_req, res) => res.json({ ok: true }));
 

@@ -1,19 +1,24 @@
-// src/models/Teacher.js
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const teacherSchema = new mongoose.Schema(
+const TeacherSchema = new Schema(
   {
-    code:   { type: String, required: true, unique: true }, // mã GV
-    name:   { type: String, required: true },
-    email:  { type: String, required: true, unique: true },
-    phone:  { type: String },
-    degree: { type: String },  // trình độ cao nhất (chuỗi mô tả)
-    major:  { type: String },  // chuyên ngành
-    address:{ type: String },
+    user: {                       // <-- liên kết User ở đây
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
+    code: { type: String, required: true, unique: true },
     status: { type: String, enum: ["ACTIVE", "INACTIVE"], default: "ACTIVE" },
-    positions: [{ type: mongoose.Schema.Types.ObjectId, ref: "TeacherPosition" }],
+    address: { type: String, default: "" },
+
+    qualification: { type: String, default: "" }, // bậc học
+    major: { type: String, default: "" },         // chuyên ngành
+
+    positions: [{ type: Schema.Types.ObjectId, ref: "TeacherPosition" }],
   },
-  { timestamps: true, collection: "teachers" } // <- QUAN TRỌNG
+  { timestamps: true, collection: "teachers" }
 );
 
-export default mongoose.model("Teacher", teacherSchema);
+export default mongoose.model("Teacher", TeacherSchema);
